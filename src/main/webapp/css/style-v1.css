@@ -1,0 +1,226 @@
+/*整体布局start*/
+* {margin: 0;  padding: 0;  box-sizing: border-box; }
+html {overflow-y: scroll;}/*最原始的scroll方法.页面滚动条造成宽度减小的场景很常见了，由于div块级元素的流动性，其宽度默认为100%的body宽度，但是当容器的高度超过视口宽度时候，页面就会出现滚动条，这个滚动条的宽度就会挤压body的可用宽度，也就是会挤压我们的容器的宽度，造成页面晃动的现象，很不友好，下面就来探讨下如何解决这个滚动条的问题。*/
+ul,li{list-style: none;}
+a,body{text-decoration: none;color: #333;}/* 调整，修改了字体颜色 */
+body{font-family: "Microsoft YaHei", Arial, Helvetica;font-size: 14px;background-color:#f5f5f5;}/* 调整，修改了主体背景颜色、字体 */
+/*框架结构start*/
+.container{width:1200px; margin: 10px auto;}
+header,footer {height: 60px;}	  
+.header-bg,.footer-bg{background: #5d4037;}/* 调整，修改了头部和底部背景颜色 */
+.header-bg{position: sticky;top: 0;width: 100%;}
+.fill-header-gap{margin-top: 70px;}
+header.container{margin: 0px auto;display: flex;align-items: center;column-gap:20px;}
+
+main{min-height: 200px;display: flex;}
+.main-content,.right-aside{min-height:200px;}
+.right-aside{flex: 0 0 300px;align-items: flex-start;justify-content: flex-start;margin-left: 10px;}
+.main-content{flex: 1;}
+footer{display: flex;align-items: center;justify-content: center;}
+/*框架结构end*/
+
+/*头部样式start*/
+.logo img{height: 48px;}
+header nav,header nav ul,header nav ul li{height: 100%;}
+header nav ul{display: flex;}
+header nav ul li{padding:0 15px;font-size: 15px; transition: transform 0.3s, box-shadow 0.3s;}
+header nav ul li:hover {background:#795548; transform: scale(1.15); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);}/* 调整，修改了导航栏当前鼠标移动背景颜色 */
+header nav ul a{height: 100%;width: 100%;display: flex;align-items: center;}
+header li.current{background:#795548;}/* 调整，修改了导航栏当前选中项背景颜色 */
+header a,footer{color: #fff;}/* 调整，修改了导航栏超链接和底部背景颜色 */
+header .search-box{margin-left: auto;/*将盒子右对齐，因为justify-self无效，https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_box_alignment/Box_alignment_in_flexbox*/display: flex;align-items: center;}
+header .search-box input{width: 250px;height: 35px;line-height: 35px;;padding-left:8px;border: 0;
+ border-bottom-left-radius: 3px;border-top-left-radius: 3px;background-color: rgba(255, 255, 255, 0.7);}/* 调整，修改了搜索框背景颜色 */
+/* 通用的现代浏览器 */
+header .search-box input::placeholder {color: #FFF;}/* 调整，修改了搜索框占位符字体颜色，通用现代浏览器支持，如果要兼容所以浏览器添加前缀如input::-webkit-input-placeholder*/
+.btn{display: inline-block;width:60px;height: 35px;line-height: 35px;border: 0;border-radius: 8% ;color: #fff;background: #8d6e63;}/* 调整，修改了按钮背景颜色 */
+.btn:hover{box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);}
+header .search-box button{border-radius: 0 ;border-bottom-right-radius: 8%;border-top-right-radius: 8%;}
+header .login-box a{margin-left: 5px;text-align: center;}
+
+/*设置公共盒子样式start*/
+.box{padding: 10px;border-radius: 10px;background:#f0efe2;box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);}/* 调整，修改了公共盒子背景颜色 */
+.box .box-title{display: flex;justify-content: space-between;}
+.box .box-title .more{font-size: 0.9em;}
+.box .box-title h2{border-radius: 5px 0px 0px 5px;border-left: 5px solid #5d4037;padding-left: 10px;font-size: 16px;}/* 调整，修改了公共盒子标题左边框背景颜色和字体大小 */
+.box .box-content{padding:10px;}
+/*设置公共盒子样式end*/
+
+/*整体布局end*/
+
+/*首页次导航栏样式start*/	
+.sub-nav{display: flex;justify-content: space-between;column-gap: 10px;padding:15px 20px;}
+.sub-nav dl a{display: flex;flex-direction: column;align-items: center;}
+.sub-nav dt{width: 50px;height: 50px;border-radius: 50%;display: flex;align-items: center;justify-content: center;margin-bottom: 10px;background: #5d4037;color:#fff ;
+box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);}	/* 调整，修改了次导航原型按钮背景颜色、字体颜色和背景阴影 */	   
+.sub-nav dt{transition: transform 0.3s, box-shadow 0.3s;}/*鼠标动画延长时间*/
+.sub-nav dt:hover {transform: scale(1.2); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);}/* 定义鼠标移上去动画效果*/
+.sub-nav dd{font-size: 0.9em;}
+/*首页次导航栏样式end*/
+.ellipsis {white-space: nowrap; text-overflow: ellipsis;  overflow: hidden; }/*定义单行文本省略样式*/
+.ellipsis2{word-break: break-all;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }/*定义多行这里2行文本省略，兼容性一般只有 WebKit内核的浏览器才支持，适用于移动端页面*/
+.ellipsis3{word-break: break-all;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }/*定义多行这里3行文本省略，兼容性一般只有 WebKit内核的浏览
+/*首页今日推荐start*/	
+.today-recommend .box-content{display: flex;gap: 10px;}
+.today-recommend .box-content dl{border-right: 1px dotted #d7ccc8;width: 23%;}/* 调整，修改了今日推荐右边框 */	
+.today-recommend .box-content dl:last-child{border: 0;}
+.today-recommend .box-content dt{font-size: 1.2em;color: #5d4037}/* 调整，修改了今日推荐标题颜色 */	  
+.today-recommend .box-content dd{margin-top: 4px;line-height: 1.6em;}
+/*首页今日推荐end*/
+
+/* 卡片样式start*/
+.card-container {display: flex; flex-wrap: wrap;  gap:8px; padding: 10px;  }
+.card {width: 24.25%; min-height: 100px ;padding: 10px;border: 1px solid #e0e0e0;border-radius: 8px;
+   background:#f0efe2; /* 调整，修改了卡片背景颜色 */
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   transition: transform 0.3s, box-shadow 0.3s;/*鼠标动画延长时间*/
+ }
+.card:hover {transform: scale(1.2); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);background: #e0d8cf;}/*调整，修改了鼠标移上去动画效果及背景颜色*/
+.card img { width: 95%; height: auto; border-radius: 5px;} /* 卡片图片样式 */                               
+.card .card-title {margin-bottom: 10px;font-weight:normal;font-size: 1.05em ;display: flex;justify-content: space-between;} /* 卡片标题样式 */ 
+.card p{color: #555; }
+/* 卡片样式end*/
+
+/*首页诗词推荐start*/
+.poem-recommend{}
+/*首页诗词推荐end*/
+/*首页诗人推荐start*/
+.author-recommend{margin-top: 10px;}
+.author-recommend .box-content{display: flex;flex-wrap: wrap;  gap:10px;justify-content: flex-start;}
+.author-recommend figure { width: 112px;padding: 5px;border: 1px solid #ccc;
+    border-radius: 8px;display: flex;flex-direction: column;align-items:center;}
+.author-recommend img{width: 80px;height: 80px ;border-radius: 50px; transition: transform 0.5s ease; /* 添加过渡效果 */}
+.author-recommend figure:hover img { animation: rotate 2s linear infinite; /* 定义动画 */}/* 鼠标移入时的动画 */
+/* 定义旋转动画 */
+@keyframes rotate {
+    from {transform: rotate(0deg); /* 从0度开始 */}
+    to {transform: rotate(360deg); /* 旋转360度 */}
+}
+.author-recommend figcaption {text-align: center;  margin: 8px auto;}
+/*首页诗人推荐end*/
+/*首页分类推荐推荐start*/
+.category-recommend {padding: 16px; display: grid;grid-template: auto / 1fr 1fr 1fr;grid-gap: 8px;}
+.category-recommend a{display: inline-block; height:33px; line-height: 33px; overflow: hidden; border-radius: 4px;
+    text-align: center; border: 1px solid #ccc;}/* 调整，修改了边框颜色 */	  
+.category-recommend a:hover{background: #8d6e63;color: #fff; }	/* 调整，修改了鼠标移上去颜色 */	
+/*首页分类推荐推荐end*/
+	
+		   
+/*面包屑start*/	   
+.breadcrumbs{display: flex;gap:20px;}
+/*面包屑end*/
+/*列表页-分类筛选start*/	
+.category .box-content>div{display: flex;gap: 10px;padding: 7px 5px;}	
+.category .box-content>div span{font-weight: bold;color: #5d4037;font-size: 1.1em;}/* 调整，修改了分类名称颜色 */
+/*列表页-分类筛选end*/
+/*列表页-诗词列表start*/
+.poem-list dl{padding: 15px 15px;margin-bottom: 10px;}
+.poem-list .title{font-size: 1.3em;display: flex;justify-content: space-between;}
+.poem-list .title div{display: flex;gap: 10px;}
+.poem-list .title div a{width: 22px;height: 22px;border: 2px solid #AAAAA7;border-radius: 50%;
+   font-size: 13px ;display: flex;justify-content: center;align-items: center;}
+.poem-list .title div a:hover{background: #8d6e63;border: 0;color: #fff;}/* 调整，修改了鼠标移上去颜色 */
+
+.poem-list dd{margin: 15px auto;}
+.poem-list .author,.poem-list .author a{display: flex;align-items: center;}
+.poem-list .author a{font-size: 0.85em;}
+.poem-list .author img{width: 23px;height: 23px;border-radius: 50px;margin-right: 10px;}
+.poem-list .content{font-size: 1.15em;line-height: 2em;}
+.tools{display: flex;gap: 15px;align-items: center;}
+.tools span{font-size: 1.3em;}
+.tools span:hover{color: #8d6e63;}
+.tools span:last-of-type{margin-left: auto;/*最后一个盒子右对齐*/}
+.tags{display: flex;gap: 10px;border-top: 1px solid #DAD9D1;padding-top: 10px;margin-bottom: 0px;}
+.tags a{color: #777;} /* 调整，修改了标签名称颜色 */
+/*列表页-诗词列表end*/
+/*分页start*/
+.pager {display: flex;  gap: 1rem; justify-content: center; }
+.pager a {padding: 0.75rem 1.25rem;background-color: #f0efe2;
+     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+     border-radius: 0.375rem;transition: all 0.3s ease; text-decoration: none;border: 1px solid transparent;
+ }
+.pager a:hover {background-color: #e0d8cf; transform: translateY(-2px);
+         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+ }
+.pager a.active { color: #fff; background-color: #5d4037; border: 1px solid #4e342e;}
+/*分页end*/
+
+/*列表页-侧边栏-推荐诗人start*/
+.recommend-author .box-content{display: flex;gap: 10px;justify-content: center;flex-wrap: wrap;}
+.recommend-author .box-content img{width:75px;height: 75px;border-radius: 50%;}
+.recommend-poem {margin-top: 10px;}
+.recommend-poem li{list-style-type:square;margin: 10px 0px 10px 6px}
+.recommend-poem li a:last-of-type{float: right;}
+/*列表页-侧边栏-推荐诗人end*/
+
+/*列表页-诗人列表start*/
+.author-list dl{padding: 15px 15px;margin-bottom: 10px;}
+.author-list .box { display: grid;grid-template-columns: 110px auto;grid-template-rows: auto auto auto;}
+.author-list .box dt {grid-column: 1 / span 1;grid-row: 1/ span 4;}
+.author-list .box dd {grid-column: 2 / span 1; margin-bottom: 2px; }
+.author-list .title img{width: 95px;height: 100px;border-radius:5%;}
+.author-list .author{display: flex;gap: 8px;font-size: 1.1em}
+/*列表页-诗人列表end*/
+		
+/*列表页-典故列表start*/
+.story-list article{padding: 15px 15px;margin-bottom: 10px;}
+.story-list h2{font-weight: normal;font-size:1.2em;border-bottom: 2px solid #DAD9D1;padding-bottom: 0.5rem;}/* 调整，修改了边框颜色 */
+.story-list .author,.story-list .content p{margin: 10px auto;}
+.allusion {padding: 1rem;margin: 1rem 0;background-color:#fff8e1;/* 调整，修改了引用背景颜色 */
+   border-left: 4px solid #ffb74d; /* 调整，修改了引用左边框颜色 */
+}
+/*列表页-典故列表send*/
+/*列表页-名句列表start*/
+.classic-list article{padding: 15px 15px;margin-bottom: 10px;}
+.classic-list h2{font-weight:normal;font-size:1.2em;border-bottom: 2px solid #DAD9D1;padding-bottom: 0.5rem;}/* 调整，修改了边框颜色 */
+.classic-list .content p{margin: 10px auto;}
+.classic-list .author{ text-align: right;}
+/*列表页-名句表send*/
+
+/*详情页-诗词详情start*/
+.poem-detail .box{margin-bottom: 10px;} 
+.poem-detail p{margin: 10px;}
+/*详情页-诗词详情end*/
+.poem-detail article strong{font-size: 1.3em;display: inline-block;}
+.poem-detail article p,.poem-detail .box p{line-height: 30px;}
+.poem-detail .box  hr{ border: 1px solid #DAD9D1;margin: 15px auto;}/* 调整，修改了边框颜色 */
+.poem-detail .box p:first-child b{font-size: 1.3em;}/*标题字体大小*/
+.poem-detail p img{float: left;width: 70px;height: 70px;border-radius: 15%;margin-right: 10px;}
+.clearfix::after {content: ""; height:0; display: block;clear: both;}
+
+
+/*登录注册页面start*/
+/*登录注册通用start*/
+.logreg-box{width: 400px;padding: 20px 50px;;margin: 10px auto;}/*登录注册盒子*/		 
+/* 登录方式切换 */
+.logreg-box .tab {display: flex;justify-content: center;gap:2px; margin-bottom: 15px;font-size: 1.2em; }  
+.logreg-box .tab span {cursor: pointer;width: 150px ;padding: 5px 5px;text-align: center;border-bottom: 2px solid #DAD9D1;
+         transition: border-bottom 0.3s, color 0.3s;}
+.logreg-box .tab span.current,.tab span:hover {border-bottom: 2px solid #5d4037;}
+
+.logreg-box fieldset{border: 0;}
+.logreg-box .required {color: red;}
+.logreg-box .form-group{margin: 15px auto;display: flex;align-items: center;}
+.logreg-box .form-group label{width: 65px;text-align: justify;text-align-last: justify;/*文本两端对齐*/;margin-right: 8px;}
+.logreg-box .form-group input{margin-right: 5px;}
+.logreg-box .form-group input:not([type="checkbox"],[type="submit"],[type="radio"], [type="date"]) {height: 32px;width: 72%;border: 0;border-radius: 3px;background-color: rgba(255, 255, 255, 0.7);}
+.logreg-box .btn{width: 80px;}
+/*登录注册通用end*/
+
+/*登录专用用start*/
+.main-login .form-group:nth-of-type(3) input{width: 50%;}
+.main-login .form-group:nth-of-type(3) img{width: 62px;height: 32px;}
+.main-login .form-group:nth-of-type(4){font-size: 0.9em;}
+.main-login .form-group:last-of-type {display: flex;justify-content: center;}
+			 
+.other-login{margin-top: 8px;}
+.other-login fieldset legend{text-align: center;}
+.other-login fieldset>div{display: flex;gap: 40px;justify-content: center;margin-top: 10px;}
+.other-login figure{display: flex;align-items: center;flex-direction: column;} 
+/*登录专用用end*/
+/*注册专用用start*/
+.logreg-box.register .form-group input[type="tel"]{width:42%;}			
+.logreg-box.register .form-group .btn{width: 85px;height: 32px;line-height: 32px ;margin-right: 5px;}
+.logreg-box.register .submit-group {display: flex;justify-content: center;}
+/*注册专用用end*/
+/*登录注册页面end*/
